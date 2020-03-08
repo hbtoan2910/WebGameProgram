@@ -1,9 +1,9 @@
 {
-  "name": "comp397- Galaxy Guardian",
+  "name": "Galaxy Guardian",
   "version": "1.0.0",
-  "description": "COMP397 - Galaxy Guardian",
+  "description": "COMP397 - Project",
   "main": "index.js",
-  "repository": "https://github.com/CentennialCollege/COMP397-F2018-Lesson1.git",
+  "repository": "https://github.com/hbtoan2910/WebGameProgram",
   "author": "Fantastic 4",
   "license": "MIT",
   "dependencies": {
