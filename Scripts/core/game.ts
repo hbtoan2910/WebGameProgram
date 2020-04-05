@@ -24,7 +24,9 @@
         {id: "menuButton", src: imagePath + "button_menu.png"},
         {id: "instructionsButton", src: imagePath + "button_instructions.png"},
         {id: "player", src: imagePath + "player.png"},
-        {id: "planet", src: imagePath + "planet.png"},        
+        {id: "planet", src: imagePath + "planet.png"},
+        {id: "bomb", src: imagePath + "bomb.png"},
+        {id: "tshot", src: imagePath + "t_icon.PNG"},
         {id: "meteorite", src: imagePath + "meteorite.png"},
         {id: "life", src: imagePath + "life.png"},
         {id: "enemies", src: imagePath + "enemies.png" },
@@ -39,18 +41,33 @@
         {id: "instructionsBackground", src: imagePath + "instructionsBG.jpg"},
         {id: "alienBackground", src: imagePath + "alien_bg_test_02.jpg"},
         {id: "bullet", src: imagePath + "bullet_01.png" },
+        {id: "engineSound", src: audioPath + "engine.ogg"},
+        {id: "thunderSound", src: audioPath + "thunder.ogg"},
+        {id: "explosion01", src: audioPath + "aiwha__explosion.wav"},
+        {id: "explosion02", src: audioPath + "explosion.wav"},
+        {id: "spaceship", src: audioPath + "spaceship.m4a"},
+        //todo rename all occurences of yaySound
+        {id: "yaySound", src: audioPath + "space-power-up.wav"},
         {id: "bullet", src: imagePath + "bullet_01.png"},
         {id: "earthBackground", src: imagePath + "earthbackground.png"},
         {id: "enemyLvl01_01", src: imagePath + "enemy_lvl_01_01.png" },
+        // {id: "water", src: imagePath + "lvl1_score_01.png"},
         {id: "water", src: imagePath + "lvl1_score_02.png"},
+        // {id: "water", src: imagePath + "lvl1_score_03.gif"},
+        // {id: "loading", src: imagePath + "loading.gif"}
+        // {id: "loading", src: imagePath + "clMqQGC.gif"}
         {id: "loading", src: imagePath + "loading-lg.gif"},
+        //{id: "water", src: imagePath + "lvl1_score_03.gif"}
         { id: "textureMap", src: "./Assets/sprites/texturemap.png" },
-           ]
+        {id: "explosion00", src: audioPath + "explosion00.wav"},
+        {id: "lg_powerup", src: audioPath + "lg_powerup.wav"}
+    ]
 
 
     function Init():void {
         assetManager = new createjs.LoadQueue();
         managers.Game.assetManager = assetManager;// creates a reference to the global assetManager
+        assetManager.installPlugin(createjs.Sound) // enable sound preloading
         assetManager.loadManifest(assetManifest); // preloads all assets in the assetManifest
         assetManager.on("complete", Start); // Calls start when assets are finished loading
     }
