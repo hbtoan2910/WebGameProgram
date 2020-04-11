@@ -30,7 +30,7 @@ var scenes;
             for (var count = 0; count < this._backgroundNum; count++) {
                 this.addChild(this._backgrounds[count]);
             }
-            // adds life to the scene
+            // adds meteorite to the scene
             this.addChild(this._life);
             // adds player to the stage
             this.addChild(this._player);
@@ -38,6 +38,10 @@ var scenes;
             // adds bullets to the scene
             this._bulletManager.Bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
+            });
+            // adds powerUps to the scene
+            this._powerUpManager.PowerUps.forEach(function (powerUp) {
+                _this.addChild(powerUp);
             });
             //adds enemies to the scene
             for (var count = 0; count < this._enemiesNum_03_01; count++) {
@@ -90,6 +94,9 @@ var scenes;
             // instantiates a new bullet manager
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this._bulletManager;
+            // instantiates a new powerUp manager
+            this._powerUpManager = new managers.PowerUps();
+            managers.Game.powerUpManager = this._powerUpManager;
             this._panel = new objects.Board("panel", config.Constants.verticalPlaySpeed);
             this.SetupInput();
             this.Main();
@@ -97,6 +104,7 @@ var scenes;
         Level3.prototype.SetupInput = function () {
             managers.Input.Start();
             this.on("mousedown", managers.Input.OnLeftMouseDown);
+            document.addEventListener("keydown", managers.Input.KeyPressed);
             document.addEventListener("keydown", managers.Input.CheatLife);
         };
         Level3.prototype.Update = function () {
@@ -143,6 +151,10 @@ var scenes;
                     managers.Collision.Check(bullet, enemy2);
                 });
             });
+            this._powerUpManager.Update();
+            this._powerUpManager.PowerUps.forEach(function (powerUp) {
+                managers.Collision.Check(_this._player, powerUp);
+            });
             // updates background 0
             if (this._backgrounds[1].y >= 0 || this._backgrounds[1].y <= config.Constants.canvasHeight - this._backgrounds[1].Height) {
                 this._backgrounds[0].Update();
@@ -158,6 +170,7 @@ var scenes;
             this.removeAllChildren();
             this._engineSound.stop();
             this.off("mousedown", managers.Input.OnLeftMouseDown);
+            document.removeEventListener("keydown", managers.Input.KeyPressed);
             document.removeEventListener("keydown", managers.Input.CheatLife);
         };
         return Level3;

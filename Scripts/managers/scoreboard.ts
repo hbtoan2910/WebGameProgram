@@ -6,6 +6,7 @@ module managers {
         private _lives:number;
         private _highScore:number;
         private _level:number;
+        private _bombs:number;
 
         private _scoreLabel:objects.Label;
         private _livesLabel:objects.Label;
@@ -23,7 +24,14 @@ module managers {
             this._score = newValue;
             this._scoreLabel.text = "Score: " + this._score;
         }
+        get Bombs():number {
+            return this._bombs;
+        }
 
+        set Bombs(newValue:number) {
+            this._bombs = newValue;
+            this._bombsLabel.text = "Bombs: " + this._bombs;
+        }
         get Lives():number {
             return this._lives;
         }
@@ -65,6 +73,7 @@ module managers {
             this.Score = scoreNum;
             this.HighScore = highScoreNum;
             this.Level = level;
+            this.Bombs = bombsNum;
 
         }
 
@@ -77,7 +86,7 @@ module managers {
             this._scoreLabel = new objects.Label("Score: 99999", "30px", "planet", "#FFFF00", 710, 340, false);
             this._livesLabel = new objects.Label("Lives: 99", "30px", "planet", "#FFFF00", 710, 90, false);
             this._highScoreLabel = new objects.Label("High Score: 999999", "60px", "planet", "#FFFF00", 350, 140, true);
-            //this._bombsLabel = new objects.Label("Bombs: 9", "30px", "planet", "#FFFF00", 710, 190, false);
+            this._bombsLabel = new objects.Label("Bombs: 9", "30px", "planet", "#FFFF00", 710, 190, false);
             this._levelLabel = new objects.Label("Level: 9", "30px", "planet", "#FFFF00", 710, 390, false);
         }
 
@@ -96,7 +105,7 @@ module managers {
             this.Lives = livesNum;
             this.Score = scoreNum;
             this.Level = level;
-
+            this.Bombs = bombsNum;
         }
 
     }

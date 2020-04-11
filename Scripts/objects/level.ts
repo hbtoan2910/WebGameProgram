@@ -1,8 +1,9 @@
 module objects {
     export abstract class Level extends objects.Scene {
         // private instance variables        
-
+        protected _meteorite: objects.Meteorite;
         protected _bulletManager: managers.Bullet;
+        protected _powerUpManager: managers.PowerUps;
         private _gamepadManager: managers.GamePad;
         protected _shockwave:objects.Shockwave;
         protected _panel:objects.Board;

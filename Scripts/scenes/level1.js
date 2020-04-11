@@ -30,12 +30,19 @@ var scenes;
             for (var count = 0; count < this._backgroundNum; count++) {
                 this.addChild(this._backgrounds[count]);
             }
+            // adds water to the scene
+            this.addChild(this._water);
             // adds player to the stage
             this.addChild(this._player);
+            // adds shockwave to the stage
             this.addChild(this._shockwave.shockwaveShape);
             // adds bullets to the scene
             this._bulletManager.Bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
+            });
+            // adds powerUps to the scene
+            this._powerUpManager.PowerUps.forEach(function (powerUp) {
+                _this.addChild(powerUp);
             });
             //adds enemies to the scene
             for (var count = 0; count < this._enemiesNum; count++) {
@@ -60,6 +67,7 @@ var scenes;
             }
             // Places the second background in the Reset position instead of the Start position
             this._backgrounds[1].Reset();
+            this._water = new objects.Water();
             this._player = new objects.Player();
             managers.Game.player = this._player;
             this._shockwave = new objects.Shockwave();
@@ -75,6 +83,9 @@ var scenes;
             // instantiates a new bullet manager
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this._bulletManager;
+            // instantiates a new powerUp manager
+            this._powerUpManager = new managers.PowerUps();
+            managers.Game.powerUpManager = this._powerUpManager;
             this._panel = new objects.Board("panel", config.Constants.verticalPlaySpeed);
             this.SetupInput();
             this.Main();
@@ -82,6 +93,7 @@ var scenes;
         Level1.prototype.SetupInput = function () {
             managers.Input.Start();
             this.on("mousedown", managers.Input.OnLeftMouseDown);
+            document.addEventListener("keydown", managers.Input.KeyPressed);
             document.addEventListener("keydown", managers.Input.CheatLife);
         };
         Level1.prototype.Update = function () {
@@ -92,7 +104,13 @@ var scenes;
             }
             this._player.Update();
             this._shockwave.Update();
-            managers.Collision.Check(this._player, this._shockwave);
+            this._water.Update();
+            managers.Collision.Check(this._player, this._water);
+            // updates each planet in array
+            // this._planets.forEach(planet => {
+            // planet.Update();
+            // managers.Collision.Check(this._player, planet);
+            // });
             // updates each enemy in array
             this._enemy_01_01.forEach(function (enemy) {
                 enemy.Update();
@@ -106,6 +124,10 @@ var scenes;
                 _this._enemy_01_01.forEach(function (enemy) {
                     managers.Collision.Check(bullet, enemy);
                 });
+            });
+            this._powerUpManager.Update();
+            this._powerUpManager.PowerUps.forEach(function (powerUp) {
+                managers.Collision.Check(_this._player, powerUp);
             });
             // updates background 0
             if (this._backgrounds[1].y >= 0 || this._backgrounds[1].y <= config.Constants.canvasHeight - this._backgrounds[1].Height) {
@@ -122,6 +144,7 @@ var scenes;
             this.removeAllChildren();
             this._engineSound.stop();
             this.off("mousedown", managers.Input.OnLeftMouseDown);
+            document.removeEventListener("keydown", managers.Input.KeyPressed);
             document.removeEventListener("keydown", managers.Input.CheatLife);
         };
         return Level1;

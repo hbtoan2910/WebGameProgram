@@ -80,6 +80,17 @@ var managers;
                     break;
             }
         };
+        Input.KeyPressed = function (event) {
+            if (event.keyCode == 66) {
+                if (managers.Game.scoreBoard.Bombs > 0) {
+                    managers.Game.scoreBoard.Bombs -= 1;
+                    managers.Game.shockwave.InPlay = true;
+                    var bombSound = createjs.Sound.play("explosion00");
+                    bombSound.volume = 1;
+                    setTimeout(function () { managers.Game.shockwave.InPlay = false; }, 600);
+                }
+            }
+        };
         Input.EnterPress = function (event) {
             if (event.keyCode == config.Key.ENTER) {
                 if (managers.Game.scoreBoard.Level == 1) {

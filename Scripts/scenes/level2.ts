@@ -24,6 +24,9 @@ module scenes {
                 this.addChild(this._backgrounds[count]);
             }
 
+            // adds meteorite to the scene
+            this.addChild(this._meteorite);
+
             // adds player to the stage
             this.addChild(this._player);
 
@@ -32,6 +35,11 @@ module scenes {
             // adds bullets to the scene
             this._bulletManager.Bullets.forEach(bullet => {
                 this.addChild(bullet);
+            });
+
+            // adds powerUps to the scene
+            this._powerUpManager.PowerUps.forEach(powerUp => {
+                this.addChild(powerUp);
             });
 
             //adds enemies to the scene
@@ -56,6 +64,7 @@ module scenes {
             //Tells the scoreboard what level it's on
             managers.Game.scoreBoard.Level = 2;
 
+            this._planetNum = 1;
             this._backgroundNum = 2;
             this._enemiesNum = 3;
 
@@ -68,6 +77,7 @@ module scenes {
             // Places the second background in the Reset position instead of the Start position
             this._backgrounds[1].Reset();
 
+            this._meteorite = new objects.Meteorite();
             this._boss = new objects.Boss();
             //displaays boss as invulnerable
             this._boss.alpha = 0.5;
@@ -79,6 +89,7 @@ module scenes {
             managers.Game.shockwave = this._shockwave;
 
             // must do this to instantiate the array
+
             this._enemies = new Array<objects.Enemies>();
             for (let count = 0; count < this._enemiesNum; count++) {
                 this._enemies[count] = new objects.Enemies();
@@ -91,6 +102,10 @@ module scenes {
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this._bulletManager;
 
+            // instantiates a new powerUp manager
+            this._powerUpManager = new managers.PowerUps();
+            managers.Game.powerUpManager = this._powerUpManager;
+
             this._panel = new objects.Board("panel", config.Constants.verticalPlaySpeed);
 
             this.SetupInput();
@@ -101,6 +116,7 @@ module scenes {
         public SetupInput(): void {
             managers.Input.Start();
             this.on("mousedown", managers.Input.OnLeftMouseDown);
+            document.addEventListener("keydown", managers.Input.KeyPressed);
             document.addEventListener("keydown", managers.Input.CheatLife);
         }
 
@@ -114,7 +130,8 @@ module scenes {
 
             this._shockwave.Update();
 
-            managers.Collision.Check(this._player, this._shockwave);
+            this._meteorite.Update();
+            managers.Collision.Check(this._player, this._meteorite);
 
             this._boss.Update();
             managers.Collision.Check(this._player, this._boss);
@@ -135,6 +152,10 @@ module scenes {
                 });
             });
 
+            this._powerUpManager.Update();
+            this._powerUpManager.PowerUps.forEach(powerUp => {
+                managers.Collision.Check(this._player, powerUp);
+            });
 
             // updates background 0
             if (this._backgrounds[1].y >= 0 || this._backgrounds[1].y <= config.Constants.canvasHeight - this._backgrounds[1].Height) {
@@ -154,6 +175,7 @@ module scenes {
             this.removeAllChildren();
             this._engineSound.stop();
             this.off("mousedown",managers.Input.OnLeftMouseDown);
+            document.removeEventListener("keydown", managers.Input.KeyPressed);
             document.removeEventListener("keydown", managers.Input.CheatLife);            
         
         }

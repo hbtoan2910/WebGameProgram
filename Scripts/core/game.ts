@@ -24,7 +24,7 @@
         {id: "menuButton", src: imagePath + "button_menu.png"},
         {id: "instructionsButton", src: imagePath + "button_instructions.png"},
         {id: "player", src: imagePath + "player.png"},
-        {id: "planet", src: imagePath + "planet.png"},
+        //{id: "planet", src: imagePath + "planet.png"},
         {id: "bomb", src: imagePath + "bomb.png"},
         {id: "tshot", src: imagePath + "t_icon.PNG"},
         {id: "meteorite", src: imagePath + "meteorite.png"},
@@ -52,7 +52,7 @@
         {id: "earthBackground", src: imagePath + "earthbackground.png"},
         {id: "enemyLvl01_01", src: imagePath + "enemy_lvl_01_01.png" },
         // {id: "water", src: imagePath + "lvl1_score_01.png"},
-        {id: "water", src: imagePath + "lvl1_score_02.png"},
+        {id: "water", src: imagePath + "water.png"},
         // {id: "water", src: imagePath + "lvl1_score_03.gif"},
         // {id: "loading", src: imagePath + "loading.gif"}
         // {id: "loading", src: imagePath + "clMqQGC.gif"}

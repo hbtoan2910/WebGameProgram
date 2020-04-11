@@ -111,18 +111,15 @@ module managers {
                                 }
                             }
                             break;
-                        // case "bullet":
-                        //     explosionSound = createjs.Sound.play("explosion02");
-                        //     explosionSound.volume = 0.1;
-                        //     managers.Game.scoreBoard.Lives -= 1;
-                        //     Collision.createExplosion(actor1);
-                        //     actor2.Reset();
-                        //     break;
-                        
-                        // case "tshot":
-                        //     let tShot = <objects.TShot>actor2;
-                        //     tShot.Collected();
-                        //     break;
+
+                        case "bomb":
+                            let aBomb = <objects.Bomb>actor2;
+                            aBomb.Collected();
+                            break;                        
+                        case "tshot":
+                            let tShot = <objects.TShot>actor2;
+                            tShot.Collected();
+                            break;
                     }
                     if (managers.Game.scoreBoard.Score >= 2000 && managers.Game.scoreBoard.Score < 4000 && (managers.Game.scoreBoard.Level == 1)) {
                         // managers.Game.currentState = config.Scene.LEVEL2;
@@ -158,7 +155,10 @@ module managers {
             explosionSound = createjs.Sound.play("explosion01");
             explosionSound.volume = 0.1;
             managers.Game.scoreBoard.Score += 100;
-            
+            // 10% chance for Bomb to spawn when enemy dies
+            if (Math.random() <= 0.1) {
+                managers.Game.powerUpManager.SpawnPowerUp(actor2.Position);
+            }            
             Collision.createExplosion(actor2);
             actor2.Reset();
             if(actor1.name != "shockwave") {

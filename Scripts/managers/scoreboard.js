@@ -17,6 +17,7 @@ var managers;
             this.Score = scoreNum;
             this.HighScore = highScoreNum;
             this.Level = level;
+            this.Bombs = bombsNum;
         }
         Object.defineProperty(ScoreBoard.prototype, "Score", {
             // public properties
@@ -26,6 +27,17 @@ var managers;
             set: function (newValue) {
                 this._score = newValue;
                 this._scoreLabel.text = "Score: " + this._score;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ScoreBoard.prototype, "Bombs", {
+            get: function () {
+                return this._bombs;
+            },
+            set: function (newValue) {
+                this._bombs = newValue;
+                this._bombsLabel.text = "Bombs: " + this._bombs;
             },
             enumerable: true,
             configurable: true
@@ -70,7 +82,7 @@ var managers;
             this._scoreLabel = new objects.Label("Score: 99999", "30px", "planet", "#FFFF00", 710, 340, false);
             this._livesLabel = new objects.Label("Lives: 99", "30px", "planet", "#FFFF00", 710, 90, false);
             this._highScoreLabel = new objects.Label("High Score: 999999", "60px", "planet", "#FFFF00", 350, 140, true);
-            //this._bombsLabel = new objects.Label("Bombs: 9", "30px", "planet", "#FFFF00", 710, 190, false);
+            this._bombsLabel = new objects.Label("Bombs: 9", "30px", "planet", "#FFFF00", 710, 190, false);
             this._levelLabel = new objects.Label("Level: 9", "30px", "planet", "#FFFF00", 710, 390, false);
         };
         ScoreBoard.prototype.AddGameUI = function (currentScene) {
@@ -90,6 +102,7 @@ var managers;
             this.Lives = livesNum;
             this.Score = scoreNum;
             this.Level = level;
+            this.Bombs = bombsNum;
         };
         return ScoreBoard;
     }());

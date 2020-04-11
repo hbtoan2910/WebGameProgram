@@ -8,6 +8,7 @@ module scenes{
         private _playerlbl:objects.Label;
         private _enemylbl:objects.Label;
         private _meteorlbl:objects.Label;
+        private _bomblbl:objects.Label;
 
         private _welcomeLabel:objects.Label;
         private _player:objects.BitmapGameObject;
@@ -17,6 +18,8 @@ module scenes{
         private _enemy3:objects.BitmapGameObject;
         private _meteor1:objects.BitmapGameObject;
         private _meteor2:objects.BitmapGameObject;
+        private _meteor3:objects.BitmapGameObject;
+        private _bomb:objects.BitmapGameObject; 
         private _panel:objects.Board;
 
         // public properties
@@ -47,9 +50,12 @@ module scenes{
             this.addChild(this._enemy3);
             this.addChild(this._enemylbl);
 
-            
-            this.addChild(this._meteor1);
-            this.addChild(this._meteor2);
+            this.addChild(this._bomb);   //add bombs
+            this.addChild(this._bomblbl);//add bombs label
+
+            this.addChild(this._meteor1); //Water add life lv 1
+            this.addChild(this._meteor2); //Meteorite add life lv 2
+            this.addChild(this._meteor3); //Heart add life lv 3
             this.addChild(this._meteorlbl);
 
             // adds ocean to the stage
@@ -94,6 +100,22 @@ module scenes{
             this._enemy3.y = 110;
             this._enemylbl = new objects.Label("Colliding with enemies and bullets makes you lose a life", "20px", "planet", "#FFFF00", 190, 130, false, 350);
                         
+            this._bomb = new objects.BitmapGameObject("bomb");
+            this._bomb.x = 40;
+            this._bomb.y = 230;
+            this._bomblbl = new objects.Label("Collect bomb then Press B to activate bomb to destroy enemy bullets.", "20px", "planet", "#FFFF00", 85, 230, false, 350);
+            
+            this._meteor1 = new objects.BitmapGameObject("meteorite");
+            this._meteor1.x = 90;
+            this._meteor1.y = 320;
+            this._meteor2 = new objects.BitmapGameObject("water");
+            this._meteor2.x = 10;
+            this._meteor2.y = 300;
+            this._meteor3 = new objects.BitmapGameObject("life");
+            this._meteor3.x = 160;
+            this._meteor3.y = 310;
+            this._meteorlbl = new objects.Label("Collect Water/Meteorite/Heart to gain lives and points", "20px", "planet", "#FFFF00", 290, 320, false, 350);
+            
             this.SetupInput();
             this.Main();
         }

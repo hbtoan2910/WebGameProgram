@@ -6,7 +6,7 @@ module managers {
         public static currentState:config.Scene;
         public static scoreBoard:managers.ScoreBoard;
         public static bulletManager: managers.Bullet;
-        //public static powerUpManager: managers.PowerUps;
+        public static powerUpManager: managers.PowerUps;
         public static player: objects.Player;
         public static currentScene: objects.Scene;
         public static shockwave:objects.Shockwave;

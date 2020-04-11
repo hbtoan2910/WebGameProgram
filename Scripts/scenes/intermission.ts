@@ -72,7 +72,7 @@ module scenes{
             this.addChild(this._panel);
             this.addChild(this._waitLabel);
             this.addChild(this._nextLabel);
-            this.addChild(this._welcomeLabel);
+
             this.addChild(this._nextButton);
             this.addChild(this._loading);
 
